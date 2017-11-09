@@ -32,6 +32,37 @@ class AdminPage extends Page {
   }
 }
 
+abstract class AbcAbc implements Component {}
+
+class AbcDef extends AbcAbc {
+  public function render(): Component {
+    return HtmlElement::create('code', [
+      'from' => 'AbcDef',
+      'From AbcDef',
+    ]);
+  }
+}
+
+class DefAbc implements Component {
+  public function render(): Component {
+    return new AbcDef();
+  }
+}
+
+class DefDef extends DefAbc {}
+
+class TestComponent extends RawDataContainer implements Component {
+  public function render(): Component {
+    return new DefDef();
+  }
+}
+
+class TestPage extends Page {
+  protected function component(): Component {
+    return new TestComponent($this->getData());
+  }
+}
+
 class ErrorPage extends Page {
   protected function component(): Component {
     $status = $this->get('status');

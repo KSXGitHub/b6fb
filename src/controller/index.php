@@ -29,6 +29,8 @@ function switchPage(array $data): Page {
       return MainPage::instance($data);
     case 'admin':
       return AdminPage::instance($data);
+    case 'test':
+      return TestPage::instance($data);
     default:
       throw new NotFoundException();
   }
